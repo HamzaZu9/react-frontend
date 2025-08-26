@@ -19,6 +19,11 @@ export default function Card(props) {
             setRemovingIndex(null);
         }, 300);
     }
+    const resetIngredients = () => {
+        props.setIngredients([]);
+        setRecipe("");
+    };
+
     const generateRecipe = async () => {
         const apiUrl = 'https://backend-render-f1nq.onrender.com/api/chat';
         setRecipe('');
@@ -46,13 +51,26 @@ export default function Card(props) {
                     placeholder="Add Ingredient (e.g., chicken)"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
+                    onKeyDown={(e) => e.key === 'Enter' && addIngredient()}
                 />
                 <div className="button-wrapper">
-                    <button
-                        className="add-button"
-                        onClick={addIngredient}>
-                        Add Ingredient
-                    </button>
+                    <p className="info-text">
+                        {props.ingredients.length < 3
+                            ? "Please add at least 3 ingredients to generate a recipe"
+                            : "\u00A0"}
+                    </p>
+
+                    <div className="buttons-column">
+                        <button className="add-button" onClick={addIngredient}>
+                            Add Ingredient
+                        </button>
+
+                        {recipe && (
+                            <button className="new-button" onClick={resetIngredients}>
+                                New Ingredients
+                            </button>
+                        )}
+                    </div>
                 </div>
                 <div className="ingredients-list">
                     {props.ingredients.map((ingredient, index) => (
