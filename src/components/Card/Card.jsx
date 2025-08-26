@@ -20,7 +20,7 @@ export default function Card(props) {
         }, 300);
     }
     const generateRecipe = async () => {
-        const apiUrl = 'http://localhost:5000/api/chat';
+        const apiUrl = 'https://backend-render-f1nq.onrender.com/api/chat';
         setRecipe('');
         setLoading(true);
         try {
